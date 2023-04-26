@@ -8,6 +8,7 @@ mongoose.connect(process.env.MONGO_URI);
 // Define the data to be inserted
 const jokes = [
 {
+id : 1,
 question: 'Why did the tomato turn red?',
 encodedLetters: [
 {
@@ -76,6 +77,7 @@ total: 6,
 ],
 },
 {
+id : 2,
 question: 'What did the big flower say to the little flower?',
 encodedLetters: [
 {
@@ -99,6 +101,7 @@ total: 9,
 ],
 },
 {
+id : 3,
 question: 'What do you get when you cross a snowman and a dog?',
 encodedLetters: [
 {
@@ -185,6 +188,7 @@ total: 7,
 ],
 },
 {
+id : 4,
 question: 'What do you call a dinosaur with an extensive vocabulary?',
 encodedLetters: [
 {
@@ -253,6 +257,7 @@ total: 7,
 ],
 },
 {
+id : 5,
   question: 'Why did the scarecrow win an award?',
   encodedLetters: [
   {
@@ -402,6 +407,7 @@ total: 7,
   ],
 },
 {
+id : 6,
   question: 'Why don\'t scientists trust atoms?',
   encodedLetters: [
   {
@@ -497,6 +503,7 @@ total: 7,
   ],
   },
   {
+  id : 7,
     question: 'What do you call a boomerang that won\'t come back?',
     encodedLetters: [
     {
@@ -547,6 +554,7 @@ total: 7,
     ],
     },
     {
+    id : 8,
     question: 'Why was the math book sad?',
     encodedLetters: [
     {
@@ -615,6 +623,7 @@ total: 7,
     ],
     },
     {
+    id : 9,
       question: 'Why did the tomato turn red?',
       encodedLetters: [
       {
@@ -647,6 +656,7 @@ total: 7,
       ],
       },
       {
+      id : 10,
       question: 'What do you get when you cross a sheep and a kangaroo?',
       encodedLetters: [
       {
@@ -688,6 +698,7 @@ total: 7,
       ],
       },
       {
+      id : 11,
       question: 'Why did the bicycle fall over?',
       encodedLetters: [
       {
@@ -738,6 +749,7 @@ total: 7,
       ],
       },
       {
+      id : 12,
       question: 'What do elves learn in school?',
       encodedLetters: [
       {
@@ -806,6 +818,7 @@ total: 7,
     ],
     },
     {
+    id : 13,
       question: 'Why did the golfer bring an extra pair of pants?',
       encodedLetters: [
       {
@@ -847,6 +860,7 @@ total: 7,
       ],
       },
       {
+      id : 14,
       question: 'How do oceans say hello?',
       encodedLetters: [
       {
@@ -888,6 +902,7 @@ total: 7,
       ],
       },
       {
+      id : 15,
       question: 'Why did the tomato turn red?',
       encodedLetters: [
       {
@@ -938,6 +953,7 @@ total: 7,
       ],
       },
       {
+      id : 16,
       question: 'Why don\'t some couples go to the gym?',
       encodedLetters: [
       {
@@ -997,6 +1013,7 @@ total: 7,
     ],
     },
     {
+    id : 17,
       question: 'What has four wheels and flies?',
       encodedLetters: [
       {
@@ -1047,6 +1064,7 @@ total: 7,
       ],
       },
       {
+      id : 18,
       question: 'Why did the scarecrow win an award?',
       encodedLetters: [
       {
@@ -1097,6 +1115,7 @@ total: 7,
       ],
       },
       {
+      id : 19,
       question: 'What do you call fake spaghetti?',
       encodedLetters: [
       {
@@ -1165,6 +1184,7 @@ total: 7,
       ],
       },
       {
+      id : 20,
         question: 'Why did the bicycle fall over?',
         encodedLetters: [
         {
