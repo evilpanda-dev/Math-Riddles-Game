@@ -12,6 +12,10 @@ const EncodedLetterSchema = new mongoose.Schema({
   });
   
   const JokeSchema = new mongoose.Schema({
+    id : {
+      type: Number,
+      required: true,
+    },
     question: {
       type: String,
       required: true,
@@ -22,9 +26,6 @@ const EncodedLetterSchema = new mongoose.Schema({
       default: Date.now,
     },
   });
-  
-  module.exports = mongoose.model('Joke', JokeSchema);
-  
   
   module.exports = mongoose.model('Joke', JokeSchema);
   
