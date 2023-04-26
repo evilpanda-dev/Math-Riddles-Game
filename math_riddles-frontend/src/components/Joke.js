@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ShuffledCards from './ShuffledCards';
 import Answer from './Answer';
 
-const Joke = ({ joke, settings, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
+const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
   const [letterObjs, setLetterObjs] = useState([]);
   const [shuffledLetterObjs, setShuffledLetterObjs] = useState([]);
   const [isAnswerCorrect,setIsAnswerCorrect] = useState(false)
@@ -12,6 +12,7 @@ const Joke = ({ joke, settings, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke
   useEffect(() => {
     setLetterObjs(joke.encodedLetters);
     setShuffledLetterObjs(shuffle(joke.encodedLetters));
+    setAnotherQuestion(false)
   }, [joke]);
 
   useEffect(() => {
@@ -43,11 +44,13 @@ const Joke = ({ joke, settings, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke
   
   const handleNextJoke = () => {
     onNextJoke();
+    setAnotherQuestion(true)
   };
   
 
   const handlePreviousJoke = () => {
     onPreviousJoke();
+    setAnotherQuestion(true)
   };
 
 
@@ -89,8 +92,8 @@ const Joke = ({ joke, settings, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke
       </div>
       <ShuffledCards
         letterObjs={shuffledLetterObjs}
-        settings={settings}
         onAnswerSubmit={onAnswerSubmit}
+        anotherQuestion={anotherQuestion}
       />
 
     </div>
