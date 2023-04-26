@@ -14,7 +14,8 @@ exports.getAllJokes = async (req, res) => {
 // Fetch a single joke
 exports.getJoke = async (req, res) => {
   try {
-    const joke = await Joke.findById(req.params.id);
+    // const joke = await Joke.findById(req.params.id);
+    const joke = await Joke.findOne({ id: req.params.id });
     if (!joke) {
       return res.status(404).json({ message: 'Joke not found' });
     }
