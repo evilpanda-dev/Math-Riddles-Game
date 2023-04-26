@@ -6,27 +6,40 @@ const correctSoundEffect = new Audio(correctSound);
 // const incorrectSoundEffect = new Audio(incorrectSound);
 
 
-const Card = ({ letterObj, settings, onAnswerSubmit,onNextJoke,onPreviousJoke}) => {
+const Card = ({ letterObj, onAnswerSubmit,anotherQuestion}) => {
   const [userAnswer, setUserAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmited, setIsSubmited] = useState(false);
   const [incorrectSoundEffect, setIncorrectSoundEffect] = useState(null);
 
   useEffect(() => {
+    if (anotherQuestion) {
+      setIsCorrect(false);
+      setIsSubmited(false);
+      setIncorrectSoundEffect(null);
+      setUserAnswer('');
+    } 
+  }, [anotherQuestion]);
+
+  useEffect(() => {
     if (letterObj.rightAnswer == true) {
       setIsCorrect(true);
-    } else if (letterObj.rightAnswer === 'false') {
-      setIsCorrect(false);
-    }
-  }, [letterObj.rightAnswer,isCorrect]);
-
-  useEffect(()=>{
-    if(isSubmited && isCorrect == true){
       correctSoundEffect.play();
-    } else if(isSubmited && isCorrect == false && incorrectSoundEffect){
+    } else if (letterObj.rightAnswer !== true) {
+      setIncorrectSoundEffect(new Audio(incorrectSound));
+      setIsCorrect(false);
+      if (incorrectSoundEffect)
       incorrectSoundEffect.play();
     }
-  },[isSubmited,isCorrect,incorrectSoundEffect])
+  }, [letterObj.rightAnswer,isSubmited]);
+
+  // useEffect(()=>{
+  //   if(isSubmited && isCorrect == true){
+  //     correctSoundEffect.play();
+  //   } else if(isSubmited && isCorrect == false && incorrectSoundEffect){
+  //     incorrectSoundEffect.play();
+  //   }
+  // },[isSubmited,isCorrect,incorrectSoundEffect])
 
   const handleInputChange = (e) => {
     setUserAnswer(e.target.value);
@@ -36,10 +49,7 @@ const Card = ({ letterObj, settings, onAnswerSubmit,onNextJoke,onPreviousJoke}) 
     e.preventDefault();
     onAnswerSubmit(userAnswer, letterObj);
     setUserAnswer('');
-    setIsSubmited(true)
-    if (isCorrect == false) {
-      setIncorrectSoundEffect(new Audio(incorrectSound));
-    }
+    setIsSubmited(true);
   };
   
 
