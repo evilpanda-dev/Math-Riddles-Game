@@ -3,10 +3,8 @@ import correctSound from '../assets/sounds/correct.mp3';
 import incorrectSound from '../assets/sounds/incorrect.mp3';
 
 const correctSoundEffect = new Audio(correctSound);
-// const incorrectSoundEffect = new Audio(incorrectSound);
 
-
-const Card = ({ letterObj, onAnswerSubmit,anotherQuestion}) => {
+const Card = ({ letterObj, onAnswerSubmit, anotherQuestion }) => {
   const [userAnswer, setUserAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmited, setIsSubmited] = useState(false);
@@ -18,7 +16,7 @@ const Card = ({ letterObj, onAnswerSubmit,anotherQuestion}) => {
       setIsSubmited(false);
       setIncorrectSoundEffect(null);
       setUserAnswer('');
-    } 
+    }
   }, [anotherQuestion]);
 
   useEffect(() => {
@@ -29,17 +27,9 @@ const Card = ({ letterObj, onAnswerSubmit,anotherQuestion}) => {
       setIncorrectSoundEffect(new Audio(incorrectSound));
       setIsCorrect(false);
       if (incorrectSoundEffect)
-      incorrectSoundEffect.play();
+        incorrectSoundEffect.play();
     }
-  }, [letterObj.rightAnswer,isSubmited]);
-
-  // useEffect(()=>{
-  //   if(isSubmited && isCorrect == true){
-  //     correctSoundEffect.play();
-  //   } else if(isSubmited && isCorrect == false && incorrectSoundEffect){
-  //     incorrectSoundEffect.play();
-  //   }
-  // },[isSubmited,isCorrect,incorrectSoundEffect])
+  }, [letterObj.rightAnswer, isSubmited]);
 
   const handleInputChange = (e) => {
     setUserAnswer(e.target.value);
@@ -51,36 +41,31 @@ const Card = ({ letterObj, onAnswerSubmit,anotherQuestion}) => {
     setUserAnswer('');
     setIsSubmited(true);
   };
-  
 
-
-// // console.log(letterObj.rightAnswer)
-//   const isCorrect = Boolean(letterObj.rightAnswer);
-// console.log(letterObj)
   return (
     //Add correct classname if isCorrect is true,incorrect if isIncorrect true and by default ""
-<div className={`card-container ${isSubmited && (isCorrect ? "correct" : "incorrect")}`}>
+    <div className={`card-container ${isSubmited && (isCorrect ? "correct" : "incorrect")}`}>
       <h5>{letterObj.letter}</h5>
       <h6>{`${letterObj.max} ${letterObj.sign} ${letterObj.min}`}</h6>
       <form onSubmit={handleSubmit} className="card-form">
-      <div className="input-wrapper">
-        <input
-          type="number"
-          value={userAnswer}
-          onChange={handleInputChange}
+        <div className="input-wrapper">
+          <input
+            type="number"
+            value={userAnswer}
+            onChange={handleInputChange}
+            disabled={isCorrect}
+            className="card-input"
+          />
+          <div className="underline"></div>
+        </div>
+        <button
+          type="submit"
           disabled={isCorrect}
-          className="card-input"
-        />
-        <div className="underline"></div>
-      </div>
-      <button
-        type="submit"
-        disabled={isCorrect}
-        className={`card-submit ${isCorrect ? "disabled" : ""}`}
-      >
-        Check
-      </button>
-    </form>
+          className={`card-submit ${isCorrect ? "disabled" : ""}`}
+        >
+          Check
+        </button>
+      </form>
     </div>
   );
 };

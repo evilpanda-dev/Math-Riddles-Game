@@ -6,15 +6,30 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
+const Joke = ({ joke, onNextJoke, onPreviousJoke, isFirstJoke, isLastJoke }) => {
   const [letterObjs, setLetterObjs] = useState([]);
   const [shuffledLetterObjs, setShuffledLetterObjs] = useState([]);
-  const [isAnswerCorrect,setIsAnswerCorrect] = useState(false)
-  const [anotherQuestion,setAnotherQuestion] = useState(false)
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
+  const [anotherQuestion, setAnotherQuestion] = useState(false)
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
+
+  // Initialize letterObjs and shuffledLetterObjs when the component mounts or joke updates
+  useEffect(() => {
+    setLetterObjs(joke.encodedLetters);
+    setShuffledLetterObjs(shuffle(joke.encodedLetters));
+    setAnotherQuestion(false)
+  }, [joke]);
+
+  useEffect(() => {
+    if (isAnswerCorrect) {
+      setIsAnswerCorrect(true)
+    } else {
+      setIsAnswerCorrect(false)
+    }
+  }, [isAnswerCorrect])
 
   const handleTimeUp = () => {
     setIsModalOpen(true);
@@ -31,20 +46,7 @@ const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
     setResetTimer(false);
   };
 
-  // Initialize letterObjs and shuffledLetterObjs when the component mounts or joke updates
-  useEffect(() => {
-    setLetterObjs(joke.encodedLetters);
-    setShuffledLetterObjs(shuffle(joke.encodedLetters));
-    setAnotherQuestion(false)
-  }, [joke]);
 
-  useEffect(() => {
-    if (isAnswerCorrect){
-      setIsAnswerCorrect(true)
-    } else{
-      setIsAnswerCorrect(false)
-    }
-  }, [isAnswerCorrect])
 
   const onAnswerSubmit = (userAnswer, letterObj) => {
     // Check if the user's answer is correct and update the rightAnswer property
@@ -61,16 +63,16 @@ const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
           obj.id == letterObj.id ? { ...obj, rightAnswer: true } : obj
         )
       );
-    } else if (parseInt(userAnswer) !== letterObj.total){
+    } else if (parseInt(userAnswer) !== letterObj.total) {
       setIsAnswerCorrect(false)
     }
   };
-  
+
   const handleNextJoke = () => {
     onNextJoke();
     setAnotherQuestion(true)
   };
-  
+
 
   const handlePreviousJoke = () => {
     onPreviousJoke();
@@ -78,71 +80,56 @@ const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
   };
 
 
-  const shuffle = (array) => {
-    // Fisher-Yates shuffle algorithm implementation
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray;
-  };
-
   return (
     <div className="joke">
-       <Timer
+      <Timer
         delay={30}
         onTimeUp={handleTimeUp}
         startTimer={startTimer}
         resetTimer={resetTimer}
-        style = {styles.timer}
+        style={styles.timer}
       />
       {!startTimer && (
-            <button style={styles.startButton} onClick={handleStartTimer}>
-            Start Timer</button>
+        <button style={styles.startButton} onClick={handleStartTimer}>
+          Start Timer</button>
       )}
       <Modal
-  isOpen={isModalOpen}
-  onRequestClose={closeModal}
-  contentLabel="Time's Up"
-  style={customStyles}
->
-  <h2>Time's up!</h2>
-  <p>You answered {questionsAnswered} math questions.</p>
-  <button style={customStyles.closeButton} onClick={closeModal}>
-    Close
-  </button>
-</Modal>
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Time's Up"
+        style={customStyles}
+      >
+        <h2>Time's up!</h2>
+        <p>You answered {questionsAnswered} math questions.</p>
+        <button style={customStyles.closeButton} onClick={closeModal}>
+          Close
+        </button>
+      </Modal>
       <h2>{joke.question}</h2>
       <Answer encodedLetters={letterObjs} />
       <div>
-      <button
-        type="button"
-        onClick={handlePreviousJoke}
-        className={isFirstJoke ? "card-previous-disabled" : "card-previous"}
-        disabled = {isFirstJoke}
-      >
-        Previous
-      </button>
-      <button
-        type="button"
-        onClick={handleNextJoke}
-        // if the joke is the last one, put disabled class on the button
-        className={isLastJoke ? "card-next-disabled" : "card-next"}
-        disabled = {isLastJoke || !isAnswerCorrect}
-      >
-        Next
-      </button>
+        <button
+          type="button"
+          onClick={handlePreviousJoke}
+          className={isFirstJoke ? "card-previous-disabled" : "card-previous"}
+          disabled={isFirstJoke}
+        >
+          Previous
+        </button>
+        <button
+          type="button"
+          onClick={handleNextJoke}
+          className={isLastJoke ? "card-next-disabled" : "card-next"}
+          disabled={isLastJoke || !isAnswerCorrect}
+        >
+          Next
+        </button>
       </div>
       <ShuffledCards
         letterObjs={shuffledLetterObjs}
         onAnswerSubmit={onAnswerSubmit}
         anotherQuestion={anotherQuestion}
       />
-
     </div>
   );
 };
@@ -193,4 +180,17 @@ const styles = {
     fontSize: '14px',
     marginTop: '10px',
   },
+};
+
+const shuffle = (array) => {
+  // Fisher-Yates shuffle algorithm implementation
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [
+      shuffledArray[j],
+      shuffledArray[i],
+    ];
+  }
+  return shuffledArray;
 };

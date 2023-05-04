@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Card from './Card';
 
-const ShuffledCards = ({ letterObjs, onAnswerSubmit,anotherQuestion}) => {
+const ShuffledCards = ({ letterObjs, onAnswerSubmit, anotherQuestion }) => {
   return (
     <div className="shuffled-cards-container">
-
       {letterObjs.map((letterObj) => (
         <Card
           key={letterObj.id}
@@ -13,8 +12,6 @@ const ShuffledCards = ({ letterObjs, onAnswerSubmit,anotherQuestion}) => {
           anotherQuestion={anotherQuestion}
         />
       ))}
-
-
     </div>
   );
 };
