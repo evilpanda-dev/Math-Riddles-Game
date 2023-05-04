@@ -1,12 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import ShuffledCards from './ShuffledCards';
 import Answer from './Answer';
+import Timer from './Timer';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
   const [letterObjs, setLetterObjs] = useState([]);
   const [shuffledLetterObjs, setShuffledLetterObjs] = useState([]);
   const [isAnswerCorrect,setIsAnswerCorrect] = useState(false)
   const [anotherQuestion,setAnotherQuestion] = useState(false)
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
+
+  const handleTimeUp = () => {
+    setIsModalOpen(true);
+    setStartTimer(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setResetTimer(true);
+  };
+
+  const handleStartTimer = () => {
+    setStartTimer(true);
+    setResetTimer(false);
+  };
 
   // Initialize letterObjs and shuffledLetterObjs when the component mounts or joke updates
   useEffect(() => {
@@ -32,6 +55,7 @@ const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
         )
       );
       setIsAnswerCorrect(true)
+      setQuestionsAnswered(questionsAnswered + 1);
       setShuffledLetterObjs((prevShuffledLetterObjs) =>
         prevShuffledLetterObjs.map((obj) =>
           obj.id == letterObj.id ? { ...obj, rightAnswer: true } : obj
@@ -69,6 +93,29 @@ const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
 
   return (
     <div className="joke">
+       <Timer
+        delay={30}
+        onTimeUp={handleTimeUp}
+        startTimer={startTimer}
+        resetTimer={resetTimer}
+        style = {styles.timer}
+      />
+      {!startTimer && (
+            <button style={styles.startButton} onClick={handleStartTimer}>
+            Start Timer</button>
+      )}
+      <Modal
+  isOpen={isModalOpen}
+  onRequestClose={closeModal}
+  contentLabel="Time's Up"
+  style={customStyles}
+>
+  <h2>Time's up!</h2>
+  <p>You answered {questionsAnswered} math questions.</p>
+  <button style={customStyles.closeButton} onClick={closeModal}>
+    Close
+  </button>
+</Modal>
       <h2>{joke.question}</h2>
       <Answer encodedLetters={letterObjs} />
       <div>
@@ -101,3 +148,49 @@ const Joke = ({ joke, onNextJoke,onPreviousJoke,isFirstJoke,isLastJoke }) => {
 };
 
 export default Joke;
+
+// Custom styles for the modal
+const customStyles = {
+  content: {
+    width: '300px',
+    height: '200px',
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    borderRadius: '10px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)',
+    backgroundColor: '#f0f2f5',
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  closeButton: {
+    cursor: 'pointer',
+    backgroundColor: '#3498db',
+    color: 'white',
+    borderRadius: '5px',
+    border: 'none',
+    padding: '8px 16px',
+    fontSize: '14px',
+  },
+};
+
+const styles = {
+  timer: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: '#3498db',
+  },
+  startButton: {
+    cursor: 'pointer',
+    backgroundColor: '#3498db',
+    color: 'white',
+    borderRadius: '5px',
+    border: 'none',
+    padding: '8px 16px',
+    fontSize: '14px',
+    marginTop: '10px',
+  },
+};
