@@ -8,21 +8,17 @@ const jokesRoutes = require('./routes/jokes');
 dotenv.config();
 
 // Initialize express app
-const app = express(); 
- 
+const app = express();
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log('Error connecting to MongoDB:', err));
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('Error connecting to MongoDB:', err));
 
-// Routes
-// app.get('/', (req, res) => {
-//   res.send('Welcome to the Joke Decoder API');
-// });
 
 // Start server
 app.listen(process.env.PORT, () => {
