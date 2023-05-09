@@ -1,9 +1,17 @@
 const Joke = require('../models/joke');
 
-// Fetch all jokes
+// Fetch all jokes based on difficulty
 exports.getAllJokes = async (req, res) => {
   try {
-    const jokes = await Joke.find();
+    const difficulty = req.query.difficulty;
+    let jokes;
+
+    if (difficulty) {
+      jokes = await Joke.find({ difficulty: difficulty });
+    } else {
+      jokes = await Joke.find();
+    }
+
     res.json(jokes);
   } catch (err) {
     res.status(500).json({ message: err.message });
