@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { getAllJokes } from './api/jokeAPI';
 import Joke from './components/Joke';
 import './styles/App.css';
+import DifficultyPicker from './components/DifficultyPicker';
 
 const App = () => {
   const [joke, setJoke] = useState(null);
   const [currentJokeIndex, setCurrentJokeIndex] = useState(0);
   const [isFirstJoke, setIsFirstJoke] = useState(false);
   const [isLastJoke, setIsLastJoke] = useState(false);
+  const [difficulty, setDifficulty] = useState('easy');
+  const [isDifficultyChanged, setIsDifficultyChanged] = useState(false);
 
   useEffect(() => {
-    fetchJoke();
-  }, []);
+    fetchJoke(difficulty);
+    setIsDifficultyChanged(false);
+  }, [difficulty]);
 
   useEffect(() => {
     if (joke && joke.length > 0) {
@@ -34,9 +38,9 @@ const App = () => {
     }
   };
 
-  const fetchJoke = async () => {
+  const fetchJoke = async (difficulty) => {
     try {
-      const jokes = await getAllJokes();
+      const jokes = await getAllJokes(difficulty);
       setJoke(jokes);
     } catch (error) {
       console.error('Error fetching jokes:', error);
@@ -49,6 +53,7 @@ const App = () => {
         <h1>Fun Math</h1>
       </header>
       <div className="app">
+        <DifficultyPicker onDifficultyChange={setDifficulty} onChange={setIsDifficultyChanged} />
         {joke &&
           <Joke
             joke={joke[currentJokeIndex]}
@@ -56,6 +61,7 @@ const App = () => {
             onPreviousJoke={handlePreviousJoke}
             isFirstJoke={isFirstJoke}
             isLastJoke={isLastJoke}
+            difficultyChanged={isDifficultyChanged}
           />}
       </div>
     </>
