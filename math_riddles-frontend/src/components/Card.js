@@ -11,7 +11,7 @@ const Card = ({ letterObj, onAnswerSubmit, anotherQuestion }) => {
   const [incorrectSoundEffect, setIncorrectSoundEffect] = useState(null);
 
   useEffect(() => {
-    if (anotherQuestion) {
+    if (anotherQuestion == true) {
       setIsCorrect(false);
       setIsSubmited(false);
       setIncorrectSoundEffect(null);
@@ -43,7 +43,6 @@ const Card = ({ letterObj, onAnswerSubmit, anotherQuestion }) => {
   };
 
   return (
-    //Add correct classname if isCorrect is true,incorrect if isIncorrect true and by default ""
     <div className={`card-container ${isSubmited && (isCorrect ? "correct" : "incorrect")}`}>
       <h5>{letterObj.letter}</h5>
       <h6>{`${letterObj.max} ${letterObj.sign} ${letterObj.min}`}</h6>
