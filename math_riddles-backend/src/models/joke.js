@@ -21,9 +21,9 @@ const JokeSchema = new mongoose.Schema({
     required: true,
   },
   encodedLetters: [EncodedLetterSchema],
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  difficulty: {
+    type: String,
+    required: false,
   },
 });
 
