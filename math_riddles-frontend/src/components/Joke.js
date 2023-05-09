@@ -7,7 +7,7 @@ import { shuffle } from '../actions/shuffle';
 
 Modal.setAppElement('#root');
 
-const Joke = ({ joke, onNextJoke, onPreviousJoke, isFirstJoke, isLastJoke }) => {
+const Joke = ({ joke, onNextJoke, onPreviousJoke, isFirstJoke, isLastJoke, difficultyChanged }) => {
   const [letterObjs, setLetterObjs] = useState([]);
   const [shuffledLetterObjs, setShuffledLetterObjs] = useState([]);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
@@ -17,12 +17,17 @@ const Joke = ({ joke, onNextJoke, onPreviousJoke, isFirstJoke, isLastJoke }) => 
   const [startTimer, setStartTimer] = useState(false);
   const [resetTimer, setResetTimer] = useState(false);
 
-  // Initialize letterObjs and shuffledLetterObjs when the component mounts or joke updates
   useEffect(() => {
     setLetterObjs(joke.encodedLetters);
     setShuffledLetterObjs(shuffle(joke.encodedLetters));
     setAnotherQuestion(false)
   }, [joke]);
+
+  useEffect(() => {
+    if (difficultyChanged == true) {
+      setAnotherQuestion(true)
+    }
+  }, [difficultyChanged])
 
   useEffect(() => {
     if (isAnswerCorrect) {
