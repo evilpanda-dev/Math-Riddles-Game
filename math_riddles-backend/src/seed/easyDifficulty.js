@@ -75,6 +75,7 @@ const jokes = [
         total: 6,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 2,
@@ -99,6 +100,7 @@ const jokes = [
         total: 9,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 3,
@@ -186,6 +188,7 @@ const jokes = [
         total: 7,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 4,
@@ -255,6 +258,7 @@ const jokes = [
         total: 7,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 5,
@@ -405,6 +409,7 @@ const jokes = [
         total: 7,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 6,
@@ -501,6 +506,7 @@ const jokes = [
         total: 6,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 7,
@@ -552,6 +558,7 @@ const jokes = [
         total: 4,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 8,
@@ -621,6 +628,7 @@ const jokes = [
         total: 9,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 9,
@@ -654,6 +662,7 @@ const jokes = [
         total: 8,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 10,
@@ -696,6 +705,7 @@ const jokes = [
         total: 4,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 11,
@@ -747,6 +757,7 @@ const jokes = [
         total: 10,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 12,
@@ -816,6 +827,7 @@ const jokes = [
         total: 5,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 13,
@@ -858,6 +870,7 @@ const jokes = [
         total: 4,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 14,
@@ -900,6 +913,7 @@ const jokes = [
         total: 4,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 15,
@@ -951,6 +965,7 @@ const jokes = [
         total: 5,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 16,
@@ -1011,6 +1026,7 @@ const jokes = [
         total: 8,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 17,
@@ -1062,6 +1078,7 @@ const jokes = [
         total: 4,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 18,
@@ -1113,6 +1130,7 @@ const jokes = [
         total: 5,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 19,
@@ -1182,6 +1200,7 @@ const jokes = [
         total: 8,
       },
     ],
+    difficulty: 'easy',
   },
   {
     id: 20,
@@ -1233,6 +1252,7 @@ const jokes = [
         total: 5,
       },
     ],
+    difficulty: 'easy',
   },
 ];
 
