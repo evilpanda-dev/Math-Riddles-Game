@@ -2,10 +2,15 @@ import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export const getAllJokes = async () => {
-  const response = await axios.get(`${BASE_URL}`);
+export const getAllJokes = async (difficulty) => {
+  const response = await axios.get(`${BASE_URL}`, {
+    params: {
+      difficulty: difficulty
+    }
+  });
   return response.data;
 };
+
 
 export const getJokeById = async (id) => {
   const response = await axios.get(`${BASE_URL}/${id}`);
