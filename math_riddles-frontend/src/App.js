@@ -43,9 +43,6 @@ const App = () => {
     }
   };
 
-
-
-
   return (
     <>
       <header className="app-header">

@@ -3,6 +3,7 @@ import ShuffledCards from './ShuffledCards';
 import Answer from './Answer';
 import Timer from './Timer';
 import Modal from 'react-modal';
+import { shuffle } from '../actions/shuffle';
 
 Modal.setAppElement('#root');
 
@@ -45,8 +46,6 @@ const Joke = ({ joke, onNextJoke, onPreviousJoke, isFirstJoke, isLastJoke }) => 
     setStartTimer(true);
     setResetTimer(false);
   };
-
-
 
   const onAnswerSubmit = (userAnswer, letterObj) => {
     // Check if the user's answer is correct and update the rightAnswer property
@@ -182,15 +181,3 @@ const styles = {
   },
 };
 
-const shuffle = (array) => {
-  // Fisher-Yates shuffle algorithm implementation
-  const shuffledArray = [...array];
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [
-      shuffledArray[j],
-      shuffledArray[i],
-    ];
-  }
-  return shuffledArray;
-};
