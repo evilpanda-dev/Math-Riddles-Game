@@ -54,6 +54,7 @@ const Card = ({ letterObj, onAnswerSubmit, anotherQuestion }) => {
             onChange={handleInputChange}
             disabled={isCorrect}
             className="card-input"
+            placeholder='= ?'
           />
           <div className="underline"></div>
         </div>
