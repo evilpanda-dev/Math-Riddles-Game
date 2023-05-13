@@ -87,7 +87,7 @@ const Joke = ({ joke, onNextJoke, onPreviousJoke, isFirstJoke, isLastJoke, diffi
   return (
     <div className="joke">
       <Timer
-        delay={30}
+        delay={60}
         onTimeUp={handleTimeUp}
         startTimer={startTimer}
         resetTimer={resetTimer}
