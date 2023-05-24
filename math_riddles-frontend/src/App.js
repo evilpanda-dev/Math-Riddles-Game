@@ -3,6 +3,7 @@ import { getAllJokes } from './api/jokeAPI';
 import Joke from './components/Joke';
 import './styles/App.css';
 import DifficultyPicker from './components/DifficultyPicker';
+import JokeForm from './components/JokeForm';
 
 const App = () => {
   const [joke, setJoke] = useState(null);
@@ -51,6 +52,7 @@ const App = () => {
     <>
       <header className="app-header">
         <h1>Fun Math</h1>
+        <JokeForm />
       </header>
       <div className="app">
         <DifficultyPicker onDifficultyChange={setDifficulty} onChange={setIsDifficultyChanged} />
